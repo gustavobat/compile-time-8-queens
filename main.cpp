@@ -105,6 +105,31 @@ struct ChessBoard {
         return false;
     }
 
+    void PrintSolution() {
+        for (auto row = 0; row < ChessBoard::rows(); ++row) {
+            for (auto line_num = 0; line_num < 3; line_num++) {
+                for (auto col = 0; col < ChessBoard::cols(); ++col) {
+                    const auto draw_line = [&]() {
+                        switch (this->operator()(row, col).cell_type) {
+                            case CellType::Empty:
+                                return (row + col) % 2 == 0 ? "\033[37m██████\033[0m" : "\033[30m██████\033[0m";
+                            case CellType::Queen:
+                                return "\033[31m██████\033[0m";
+                            default:
+                                return " ";
+                        }
+                    }();
+
+                    std::cout << draw_line;
+                }
+                std::cout << '\n';
+            }
+        }
+
+    }
+
+};
+
 int main() {
     ChessBoard table;
 
