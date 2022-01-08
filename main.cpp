@@ -74,7 +74,7 @@ struct ChessBoard {
         auto queen_hit_area = QueenHitArea((int) row, (int) col);
 
         auto coord_has_queen = [this](std::pair<std::size_t, std::size_t> coord) {
-            return this->operator()(coord.first, coord.second).has_queen;
+            return HasQueen(coord.first, coord.second);
         };
 
         if (std::ranges::any_of(queen_hit_area, coord_has_queen)) {
