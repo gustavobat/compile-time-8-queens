@@ -90,14 +90,14 @@ struct ChessBoard {
         if (col >= board_size)
             return true;
 
-        for (auto i = 0; i < board_size; i++) {
-            if (this->CanPlace(i, col)) {
-                InsertQueen(i, col);
+        for (auto row = 0; row < board_size; row++) {
+            if (this->CanPlace(row, col)) {
+                InsertQueen(row, col);
 
                 if (Solve(col + 1))
                     return true;
 
-                RemoveQueen(i, col);
+                RemoveQueen(row, col);
             }
         }
 
@@ -131,9 +131,9 @@ struct ChessBoard {
 
 int main() {
 
-    ChessBoard table;
-    table.Solve();
-    table.PrintSolution();
+    ChessBoard board;
+    board.Solve();
+    board.PrintSolution();
 
     return 0;
 }
