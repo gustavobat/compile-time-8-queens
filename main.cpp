@@ -23,6 +23,7 @@ struct ChessBoard {
 
     // Member functions
     constexpr static auto rows() { return m_board_size; }
+
     constexpr static auto cols() { return m_board_size; }
 
     constexpr Cell &operator()(const std::size_t row, const std::size_t col) {
