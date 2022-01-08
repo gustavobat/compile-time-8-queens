@@ -5,11 +5,8 @@
 #include <vector>
 #include <algorithm>
 
-enum class CellType
-{
-    None,
-    EmptyWhite,
-    EmptyBlack,
+enum class CellType {
+    Empty,
     Queen,
 };
 
