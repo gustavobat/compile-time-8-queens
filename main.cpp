@@ -50,7 +50,9 @@ struct ChessBoard {
         for (auto i = 0; i < m_board_size; i++) {
 
             if (i != col) if (HasQueen(row, i)) return false;
-            if (i != row) if (HasQueen(i, col)) return false;
+            // We can comment the next verification since we expect
+            // different queens to be in different columns
+            //if (i != row) if (HasQueen(i, col)) return false;
 
             if (i > 0) {
 
@@ -59,10 +61,14 @@ struct ChessBoard {
                     else return false;
                 };
 
-                if (is_inside_board(row + i, col + i)) if (HasQueen(row + i, col + i)) return false;
                 if (is_inside_board(row + i, col - i)) if (HasQueen(row + i, col - i)) return false;
-                if (is_inside_board(row - i, col + i)) if (HasQueen(row - i, col + i)) return false;
                 if (is_inside_board(row - i, col - i)) if (HasQueen(row - i, col - i)) return false;
+
+                // We can comment next verifications since we are always looking
+                // left to check if a queen is hit
+
+                //if (is_inside_board(row + i, col + i)) if (HasQueen(row + i, col + i)) return false;
+                //if (is_inside_board(row - i, col + i)) if (HasQueen(row - i, col + i)) return false;
             }
         }
         return true;
