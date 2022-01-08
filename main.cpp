@@ -83,7 +83,27 @@ struct ChessBoard {
         }
         return true;
     }
-};
+
+
+    bool Solve(std::size_t col = 0) {
+        auto board_size = ChessBoard::m_board_size;
+
+        if (col >= board_size)
+            return true;
+
+        for (auto i = 0; i < board_size; i++) {
+            if (this->CanPlace(i, col)) {
+                InsertQueen(i, col);
+
+                if (Solve(col + 1))
+                    return true;
+
+                RemoveQueen(i, col);
+            }
+        }
+
+        return false;
+    }
 
 int main() {
     ChessBoard table;
