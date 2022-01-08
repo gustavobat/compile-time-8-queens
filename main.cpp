@@ -33,15 +33,17 @@ struct ChessBoard {
         return m_data[col + (row * cols())];
     }
 
-    ChessBoard() {
-        for (auto row = 0; row < m_board_size; row++) {
-            for (auto col = 0; col < m_board_size; col++) {
-                auto & cell = m_data[col + row * cols()];
-                (col + row) % 2 == 0 ? cell.cell_type = CellType::EmptyBlack : cell.cell_type = CellType::EmptyWhite;
-            }
-        }
+    constexpr bool HasQueen(const std::size_t row, const std::size_t col) {
+        return this->operator()(row, col).cell_type == CellType::Queen;
     }
 
+    constexpr void InsertQueen(const std::size_t row, const std::size_t col) {
+        this->operator()(row, col).cell_type = CellType::Queen;
+    }
+
+    constexpr void RemoveQueen(const std::size_t row, const std::size_t col) {
+        this->operator()(row, col).cell_type = CellType::Empty;
+    }
 
     [[nodiscard]] static auto QueenHitArea(const int row, const int col) {
         std::vector<std::pair<std::size_t, std::size_t>> hit_area;
