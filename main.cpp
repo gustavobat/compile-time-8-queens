@@ -11,8 +11,7 @@ enum class CellType {
 };
 
 struct Cell {
-    CellType cell_type = CellType::None;
-    bool has_queen = false;
+    CellType cell_type = CellType::Empty;
 };
 
 struct ChessBoard {
