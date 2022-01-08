@@ -1,9 +1,4 @@
 #include <iostream>
-#include <limits>
-#include <utility>
-#include <map>
-#include <vector>
-#include <algorithm>
 
 enum class CellType {
     Empty,
