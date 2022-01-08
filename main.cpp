@@ -45,46 +45,37 @@ struct ChessBoard {
         this->operator()(row, col).cell_type = CellType::Empty;
     }
 
-    [[nodiscard]] static auto QueenHitArea(const int row, const int col) {
-        std::vector<std::pair<std::size_t, std::size_t>> hit_area;
+    [[nodiscard]] constexpr bool CanPlace(const std::size_t row, const std::size_t col) {
 
-        for (auto i = 0; i < m_board_size; i++) {
+        auto hits_another_queen = [&]() {
+            for (auto i = 0; i < m_board_size; i++) {
 
-            if (i != col) hit_area.emplace_back(row, i);
-            if (i != row) hit_area.emplace_back(i, col);
+                if (i != col) if (HasQueen(row, i)) return true;
+                if (i != row) if (HasQueen(i, col)) return true;
 
-            if (i > 0) {
+                if (i > 0) {
 
-                auto is_inside_board = [](auto i, auto j) {
-                    if (i >= 0 && i < m_board_size && j >= 0 && j < m_board_size) return true;
-                    else return false;
-                };
+                    auto is_inside_board = [](auto i, auto j) {
+                        if (i >= 0 && i < m_board_size && j >= 0 && j < m_board_size) return true;
+                        else return false;
+                    };
 
-                if (is_inside_board(row + i, col + i)) hit_area.emplace_back(row + i, col + i);
-                if (is_inside_board(row + i, col - i)) hit_area.emplace_back(row + i, col - i);
-                if (is_inside_board(row - i, col + i)) hit_area.emplace_back(row - i, col + i);
-                if (is_inside_board(row - i, col - i)) hit_area.emplace_back(row - i, col - i);
+                    if (is_inside_board(row + i, col + i)) if (HasQueen(row + i, col + i)) return true;
+                    if (is_inside_board(row + i, col - i)) if (HasQueen(row + i, col - i)) return true;
+                    if (is_inside_board(row - i, col + i)) if (HasQueen(row - i, col + i)) return true;
+                    if (is_inside_board(row - i, col - i)) if (HasQueen(row - i, col - i)) return true;
+                }
             }
-        }
-        return hit_area;
-    }
-
-    [[nodiscard]] bool CanPlace(const std::size_t row, const std::size_t col) {
-
-        auto queen_hit_area = QueenHitArea((int) row, (int) col);
-
-        auto coord_has_queen = [this](std::pair<std::size_t, std::size_t> coord) {
-            return HasQueen(coord.first, coord.second);
+            return false;
         };
 
-        if (std::ranges::any_of(queen_hit_area, coord_has_queen)) {
-            return false;
-        }
+
+        if (hits_another_queen()) return false;
         return true;
     }
 
 
-    bool Solve(std::size_t col = 0) {
+    constexpr bool Solve(std::size_t col = 0) {
         auto board_size = ChessBoard::m_board_size;
 
         if (col >= board_size)
