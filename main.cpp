@@ -92,8 +92,30 @@ struct ChessBoard {
 
     void PrintSolution() {
         for (auto row = 0; row < ChessBoard::rows(); ++row) {
+            for (auto col = 0; col < ChessBoard::cols(); ++col) {
+
+                const auto draw_line = [&]() {
+                    switch (this->operator()(row, col).cell_type) {
+                        case CellType::Empty:
+                            return "0 ";
+                        case CellType::Queen:
+                            return "1 ";
+                        default:
+                            return " ";
+                    }
+                }();
+
+                std::cout << draw_line;
+            }
+            std::cout << '\n';
+        }
+    }
+
+    void FancyPrintSolution() {
+        for (auto row = 0; row < ChessBoard::rows(); ++row) {
             for (auto line_num = 0; line_num < 3; line_num++) {
                 for (auto col = 0; col < ChessBoard::cols(); ++col) {
+
                     const auto draw_line = [&]() {
                         switch (this->operator()(row, col).cell_type) {
                             case CellType::Empty:
