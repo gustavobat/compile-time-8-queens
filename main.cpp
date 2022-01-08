@@ -47,30 +47,24 @@ struct ChessBoard {
 
     [[nodiscard]] constexpr bool CanPlace(const std::size_t row, const std::size_t col) {
 
-        auto hits_another_queen = [&]() {
-            for (auto i = 0; i < m_board_size; i++) {
+        for (auto i = 0; i < m_board_size; i++) {
 
-                if (i != col) if (HasQueen(row, i)) return true;
-                if (i != row) if (HasQueen(i, col)) return true;
+            if (i != col) if (HasQueen(row, i)) return false;
+            if (i != row) if (HasQueen(i, col)) return false;
 
-                if (i > 0) {
+            if (i > 0) {
 
-                    auto is_inside_board = [](auto i, auto j) {
-                        if (i >= 0 && i < m_board_size && j >= 0 && j < m_board_size) return true;
-                        else return false;
-                    };
+                auto is_inside_board = [](auto i, auto j) {
+                    if (i >= 0 && i < m_board_size && j >= 0 && j < m_board_size) return true;
+                    else return false;
+                };
 
-                    if (is_inside_board(row + i, col + i)) if (HasQueen(row + i, col + i)) return true;
-                    if (is_inside_board(row + i, col - i)) if (HasQueen(row + i, col - i)) return true;
-                    if (is_inside_board(row - i, col + i)) if (HasQueen(row - i, col + i)) return true;
-                    if (is_inside_board(row - i, col - i)) if (HasQueen(row - i, col - i)) return true;
-                }
+                if (is_inside_board(row + i, col + i)) if (HasQueen(row + i, col + i)) return false;
+                if (is_inside_board(row + i, col - i)) if (HasQueen(row + i, col - i)) return false;
+                if (is_inside_board(row - i, col + i)) if (HasQueen(row - i, col + i)) return false;
+                if (is_inside_board(row - i, col - i)) if (HasQueen(row - i, col - i)) return false;
             }
-            return false;
-        };
-
-
-        if (hits_another_queen()) return false;
+        }
         return true;
     }
 
