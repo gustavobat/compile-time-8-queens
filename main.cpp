@@ -16,15 +16,15 @@ struct ChessBoard {
     Cell m_data[m_board_size * m_board_size];
 
     // Member functions
-    constexpr static auto rows() { return m_board_size; }
+    [[nodiscard]] constexpr static auto rows() { return m_board_size; }
 
-    constexpr static auto cols() { return m_board_size; }
+    [[nodiscard]] constexpr static auto cols() { return m_board_size; }
 
-    constexpr Cell &operator()(const std::size_t row, const std::size_t col) {
+    [[nodiscard]] constexpr Cell &operator()(const std::size_t row, const std::size_t col) {
         return m_data[col + (row * cols())];
     }
 
-    constexpr const Cell &operator()(const std::size_t row, const std::size_t col) const {
+    [[nodiscard]] constexpr const Cell &operator()(const std::size_t row, const std::size_t col) const {
         return m_data[col + (row * cols())];
     }
 
