@@ -137,10 +137,15 @@ struct ChessBoard {
 
 };
 
-int main() {
-
+constexpr ChessBoard get_solved_board() {
     ChessBoard board;
     board.Solve();
+    return board;
+}
+
+int main() {
+
+    constexpr ChessBoard board = get_solved_board();
     board.PrintSolution();
 
     return 0;
