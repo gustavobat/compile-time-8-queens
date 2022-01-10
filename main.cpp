@@ -90,7 +90,7 @@ struct ChessBoard {
         return false;
     }
 
-    void PrintSolution() {
+    constexpr void PrintSolution() const {
         for (auto row = 0; row < ChessBoard::rows(); ++row) {
             for (auto col = 0; col < ChessBoard::cols(); ++col) {
 
@@ -111,7 +111,7 @@ struct ChessBoard {
         }
     }
 
-    void FancyPrintSolution() {
+    constexpr void FancyPrintSolution() const {
         for (auto row = 0; row < ChessBoard::rows(); ++row) {
             for (auto line_num = 0; line_num < 3; line_num++) {
                 for (auto col = 0; col < ChessBoard::cols(); ++col) {
