@@ -28,7 +28,7 @@ struct ChessBoard {
         return m_data[col + (row * cols())];
     }
 
-    constexpr bool HasQueen(const std::size_t row, const std::size_t col) {
+    [[nodiscard]] constexpr bool HasQueen(const std::size_t row, const std::size_t col) const {
         return this->operator()(row, col).cell_type == CellType::Queen;
     }
 
@@ -40,7 +40,7 @@ struct ChessBoard {
         this->operator()(row, col).cell_type = CellType::Empty;
     }
 
-    [[nodiscard]] constexpr bool CanPlace(const std::size_t row, const std::size_t col) {
+    [[nodiscard]] constexpr bool CanPlace(const std::size_t row, const std::size_t col) const {
 
         for (auto i = 0; i < m_board_size; i++) {
 
